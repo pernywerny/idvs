@@ -138,38 +138,3 @@ class DateTimeValidator:
 
 
 
-    
-    def dateInterval(self, date_input, interval, duration_type, check_type):
-        try:
-            if duration_type == "wks":
-                days = date_input.day - self.now.day
-                date_diff = days / 7
-
-            elif duration_type == "mths":
-                date_diff = date_input.day = self.now.month
-
-            elif duration_type == "yrs":
-                date_diff = date_input.year - self.now.year
-
-            elif duration_type == "dys":
-                date_diff = date_input.day - self.now.day
-
-            try:
-                if check_type == "floor":
-                    if date_diff <= interval:
-                        return True
-
-                elif check_type == "ceil":
-                    if date_diff >= interval:
-                        return True
-
-                elif check_type == "base":
-                    if date_diff == interval:
-                        return True
-
-                else:
-                    pass
-            except:
-                pass
-        except:
-            pass

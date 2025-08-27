@@ -125,15 +125,15 @@
 
             <div class ="">
                 {% if type == 'Civilian' %}
-                    <span class ="text-blue-700 font-medium hover:underline cursor-pointer">
-                        <p> Click <a href ="{% url 'user_man:auth_pol' %}"> Here </a> to go to the Police Portal</p>
+                    <span class ="">
+                        <p> Click <a href ="{% url 'user_man:auth_pol' %}" class ="text-blue-700 font-medium hover:underline cursor-pointer"> Here </a> to go to the Police Portal</p>
                     </span>
                 {% endif %}
                 
                 
                 {% if type == 'Police' %}
-                    <span class ="text-blue-700 font-medium hover:underline cursor-pointer">
-                        <p> Click <a class ="" href ="{% url 'user_man:auth_civ' %}"> Here </a> to go to the Public Portal</p>
+                    <span class ="">
+                        <p> Click <a href ="{% url 'user_man:auth_civ' %}" class ="text-blue-700 font-medium hover:underline cursor-pointer"> Here </a> to go to the Public Portal</p>
                     </span>
                 {% endif %}
             </div>

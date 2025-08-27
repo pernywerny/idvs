@@ -15,7 +15,7 @@ class EmailValidator:
                             or email.find("@icloud.com") > 1
                         ):
                             return True
-                    else: raise ValidationError('Only GMail, Yahoo, or iCloud accounts allowed')
+                    else: raise ValidationError('Only Gmail, Yahoo, or iCloud accounts allowed')
                 else: raise ValidationError('Invalid Email Address')
             else: raise ValidationError('Invalid Length')
         else: raise ValidationError('Email cannot be blank')

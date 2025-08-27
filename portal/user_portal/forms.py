@@ -1,12 +1,14 @@
 from django import forms
 from __res.__includes.libs.validators.string import StringValidator
 from __res.__includes.libs.validators.int import IntegerValidator
+from __res.__includes.libs.validators.email import EmailValidator
 
 
 
 
 strVal = StringValidator()
 intVal = IntegerValidator()
+email_val = EmailValidator()
 
 
 class PoliceAuthForm(forms.Form):
@@ -48,6 +50,7 @@ class CivAuthForm(forms.Form):
     email_addr = forms.EmailField(
                                     label = 'Email Address', 
                                     required = True, 
+                                    validators = [email_val.checkEmail],
                                     error_messages = {'required': 'You cannot proceed without entering your email address'},
                                     widget = forms.TextInput
                                         (
@@ -60,7 +63,7 @@ class CivAuthForm(forms.Form):
                                         ),
                                 )
     
-    
+
 
     password = forms.CharField(
                                 label = 'Password', 
