@@ -1,0 +1,177 @@
+{% extends 'base/app_base.html' %}
+
+    {% block page_title %} All Documents {% endblock %}
+
+    {% block page_header %}
+        <span class ="">
+            Documents Pending Verification
+        </span>
+    {% endblock %}
+
+     {% block page_content %}
+
+        <div class="w-full max-w-2xl">
+            <div class="border rounded-lg bg-white p-6 mb-8">
+                <div class="text-xl font-semibold mb-2">WELCOME, <span id="citizen-name">POLICE USERS</span>!</div>
+                <div class="text-sm mb-2" id="current-date"></div>
+                <div class="italic text-gray-600 text-sm">"To Protect and Serve."</div>
+            </div>
+            <hr class="mb-6">
+        </div>
+
+        <main class="flex-1 flex flex-col items-center justify-start py-8">
+            <div class="w-full max-w-5xl">
+                <div class="bg-white rounded-xl shadow p-8">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-left">
+                            <thead>
+                                <tr class="text-gray-500 text-xs uppercase bg-gray-50">
+                                    <!-- <th class="px-4 py-3">Application ID</th> -->
+                                    <th class="px-4 py-3">Citizen Name</th>
+                                    <th class="px-4 py-3">Citizen ID</th>
+                                    <th class="px-4 py-3">Document Type</th>
+                                    <th class="px-4 py-3">Issuing Agency</th>
+                                    <th class="px-4 py-3">Document ID</th>
+                                    <th class="px-4 py-3">Verification Status</th>
+                                    <th class="px-4 py-3">Submitted On</th>
+                                </tr>
+                            </thead>
+                            <tbody id="applications-tbody" class="text-gray-800 text-sm">
+                                {% for doc in docs %}
+                                    <tr class ="border-b last:border-b-0 hover:bg-blue-50">
+                                        <td class ="px-4 py-3 "> {{doc.owner}} </td>
+                                        <td class ="px-4 py-3"> {{doc.owner.uid}}</td>
+                                        <td class ="px-4 py-3 "> {{doc.document_type}}</td>
+                                        <td class ="px-4 py-3"> {{doc.issuing_agency}}</td>
+                                        <td class ="px-4 py-3"> {{doc.document_id}}</td>
+                                        <td class ="px-4 py-3"> 
+                                            <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-semibold">Pending</span> 
+                                        </td>
+                                        <td class =""> {{doc.date_submitted}}</td>
+                                    </tr>
+                                    <br/>
+                                    {% empty %}
+                                         <div class="text-red-900">
+                                            No documents pending verification at this time
+                                         </div>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    {% endblock %}
+
+    <!-- <script>
+        // Simulate police user data (replace with real data as needed)
+        const user = {
+            email: "policeuser@gpf.gov.gy"
+        };
+        document.getElementById('user-email').textContent = user.email;
+
+        // Set current date
+        const today = new Date();
+        const formattedDate = today.toLocaleDateString('en-GB');
+        document.getElementById('current-date').textContent = formattedDate;
+
+        // Application data (could be fetched from an API)
+        const applications = [{
+            id: "APP-001",
+            name: "John Doe",
+            citizenId: "CIT-12345",
+            documentId: "DOC-11111",
+            service: "Passport Application",
+            requestTo: "MoHA",
+            status: "Pending",
+            date: "2025-07-29"
+        }, {
+            id: "APP-002",
+            name: "Jane Smith",
+            citizenId: "CIT-23456",
+            documentId: "DOC-22222",
+            service: "Driver's License Renewal",
+            requestTo: "GRA",
+            status: "Verified",
+            date: "2025-07-28"
+        }, {
+            id: "APP-003",
+            name: "Michael Chen",
+            citizenId: "CIT-34567",
+            documentId: "DOC-33333",
+            service: "Birth Certificate Request",
+            requestTo: "GRO",
+            status: "Pending",
+            date: "2025-07-27"
+        }, {
+            id: "APP-004",
+            name: "Emily White",
+            citizenId: "CIT-45678",
+            documentId: "DOC-44444",
+            service: "Passport Application",
+            requestTo: "MoHA",
+            status: "Rejected",
+            date: "2025-07-26"
+        }];
+
+        // Status badge color mapping
+        function statusBadge(status) {
+            if (status === "Pending") {
+                return `<span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-semibold">${status}</span>`;
+            }
+            if (status === "Verified") {
+                return `<span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-semibold">${status}</span>`;
+            }
+            if (status === "Rejected") {
+                return `<span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-semibold">${status}</span>`;
+            }
+            return `<span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-semibold">${status}</span>`;
+        }
+
+        // Render table rows dynamically
+        const tbody = document.getElementById('applications-tbody');
+
+        function renderTableRows(filteredApps) {
+            tbody.innerHTML = '';
+            filteredApps.forEach(app => {
+                const tr = document.createElement('tr');
+                tr.className = "border-b last:border-b-0 hover:bg-blue-50";
+                tr.innerHTML = `
+                    <td class="px-4 py-3 text-blue-700 font-medium hover:underline cursor-pointer">
+                        <a href="IDVS_Police_Verification.html?appId=${encodeURIComponent(app.id)}">${app.id}</a>
+                    </td>
+                    <td class="px-4 py-3">${app.name}</td>
+                    <td class="px-4 py-3">${app.citizenId}</td>
+                    <td class="px-4 py-3">${app.service}</td>
+                    <td class="px-4 py-3">${app.requestTo}</td>
+                    <td class="px-4 py-3">${statusBadge(app.status)}</td>
+                    <td class="px-4 py-3">${app.date}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+        renderTableRows(applications);
+
+        // Search and filter functionality
+        document.getElementById('search-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const searchValue = document.getElementById('search-input').value.trim().toLowerCase();
+            const statusValue = document.getElementById('status-filter').value;
+            const filtered = applications.filter(app => {
+                const matchesSearch =
+                    app.citizenId.toLowerCase().includes(searchValue) ||
+                    app.documentId.toLowerCase().includes(searchValue) ||
+                    app.name.toLowerCase().includes(searchValue) ||
+                    app.id.toLowerCase().includes(searchValue);
+                const matchesStatus = !statusValue || app.status === statusValue;
+                return matchesSearch && matchesStatus;
+            });
+            renderTableRows(filtered);
+        });
+
+
+    </script> -->
+</body>
+
+</html>

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./output.css" rel="stylesheet">
+    <title>IDVS Citizen Dashboard</title>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <!-- Header Bar -->
+    <header class="bg-gray-200 border-b border-gray-300">
+        <div class="flex items-center px-4 py-2">
+            <img src="gpf_logo.png" alt="Guyana Police Force Logo" class="w-10 h-10 mr-2" />
+            <span class="text-lg font-semibold text-gray-800">Guyana Police Force</span>
+        </div>
+    </header>
+    <!-- Navigation Bar -->
+    <nav class="bg-blue-900 text-white flex items-center justify-between px-4 py-2">
+        <div class="font-semibold text-base">IDVS Citizen Dashboard</div>
+        <div class="flex items-center space-x-6">
+            <a href="IDVS_Citizen_ApplicationStatus.html" class="hover:underline">My Applications</a>
+            <span id="user-email" class="hidden sm:inline"></span>
+            <a href="IDVS_Login_Citizen.html" id="logoutBtn" class="bg-white text-blue-900 px-3 py-1 rounded font-semibold hover:bg-blue-100 transition">Logout</a>
+            <img src="gpf_logo.png" alt="Guyana Police Force Logo" class="w-8 h-8 ml-2" />
+        </div>
+    </nav>
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col items-center justify-start py-8">
+        <div class="w-full max-w-2xl">
+            <div class="border rounded-lg bg-white p-6 mb-8">
+                <div class="text-xl font-semibold mb-2">WELCOME, <span id="citizen-name">CITIZEN</span>!</div>
+                <div class="text-sm mb-2" id="current-date"></div>
+                <div class="italic text-gray-600 text-sm">"One People, One nation, One Destiny."</div>
+            </div>
+            <hr class="my-6 border-gray-300">
+            <div class="text-center">
+                <div class="mb-2 text-lg text-gray-700">Select a service, upload your documents, and track your verification status.</div>
+                <div class="mb-4 text-2xl font-semibold tracking-wide">APPLY FOR A SERVICE HERE</div>
+                <div class="mb-2 text-base">Choose a service...</div>
+                <select id="service-select" class="border border-gray-400 rounded px-4 py-2 w-64 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">-- Select a service --</option>
+                </select>
+                <div id="service-info" class="mt-6 text-blue-700 font-medium"></div>
+                <!-- Add View Application Status button below the select -->
+                <button id="view-status-btn" type="button" class="mt-6 w-64 bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition">
+                   Apply for Service
+                </button>
+            </div>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-gray-200 border-t border-gray-300 py-2 text-center text-sm text-blue-700">
+        <a href="#" class="underline">The Guyana Police Force</a>
+        <span class="mx-2 text-gray-400">*</span>
+        <a href="#" class="underline">Privacy & Terms</a>
+    </footer>
+    <script>
+        // Simulate user data (replace with real data as needed)
+        const user = {
+            name: "CITIZEN",
+            email: "TerryJ@gmail.com"
+        };
+
+        // Set user info dynamically
+        document.getElementById('citizen-name').textContent = user.name;
+        document.getElementById('user-email').textContent = user.email;
+
+        // Set current date dynamically
+        const today = new Date();
+        const formattedDate = today.toLocaleDateString('en-GB');
+        document.getElementById('current-date').textContent = formattedDate;
+
+        // Dynamic service list
+        const services = [{
+            value: "police-clearance",
+            label: "Police Clearance Certificate",
+            info: "Apply for a Police Clearance Certificate to verify your background."
+        }, {
+            value: "character-certificate",
+            label: "Character Certificate",
+            info: "Request a Character Certificate for various official purposes."
+        }, {
+            value: "other",
+            label: "Other Service",
+            info: "Select this option for other available services."
+        }];
+        const select = document.getElementById('service-select');
+        services.forEach(service => {
+            const option = document.createElement('option');
+            option.value = service.value;
+            option.textContent = service.label;
+            select.appendChild(option);
+        });
+
+        // Show info about selected service
+        select.addEventListener('change', function() {
+            const selected = services.find(s => s.value === select.value);
+            document.getElementById('service-info').textContent = selected ? selected.info : '';
+        });
+
+        // View Application Status button routing
+        document.getElementById('view-status-btn').addEventListener('click', function() {
+            window.location.href = "IDVS_Citizen_ApplicationStatus.html";
+        });
+
+   
+    </script>
+</body>
+
+</html>

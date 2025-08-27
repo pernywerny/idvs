@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./output.css" rel="stylesheet">
+    <title>Create New Verification Request</title>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <!-- Header Bar -->
+    <header class="bg-gray-200 border-b border-gray-300">
+        <div class="flex items-center px-4 py-2">
+            <img src="gpf_logo.png" alt="Guyana Police Force Logo" class="w-10 h-10 mr-2" />
+            <span class="text-lg font-semibold text-gray-800">Guyana Police Force</span>
+        </div>
+    </header>
+    <!-- Navigation Bar -->
+    <nav class="bg-blue-900 text-white flex items-center justify-between px-4 py-2">
+        <div class="font-semibold text-base">IDVS Police Dashboard</div>
+        <div class="flex items-center space-x-6">
+            <span id="user-email" class="hidden sm:inline"></span>
+            <a href="IDVS_Login_Police.html" id="logoutBtn" class="bg-white text-blue-900 px-3 py-1 rounded font-semibold hover:bg-blue-100 transition">Logout</a>
+            <img src="gpf_logo.png" alt="Guyana Police Force Logo" class="w-8 h-8 ml-2" />
+        </div>
+    </nav>
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col items-center justify-start py-8">
+        <div class="w-full max-w-2xl">
+            <div class="bg-white rounded-xl shadow p-8">
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="text-2xl font-semibold">Create New Verification Request</h2>
+                    <button onclick="window.location.href='Police_User_Dashboard.html'" class="bg-gray-200 text-gray-800 px-5 py-2 rounded font-medium hover:bg-gray-300 transition">Back to Dashboard</button>
+                </div>
+                <form id="request-form" class="space-y-6">
+                    <div>
+                        <label for="agency" class="block font-medium mb-1">Requesting Agency</label>
+                        <select id="agency" name="agency" required class="w-full border border-gray-200 rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">-- Select Agency --</option>
+                            <option value="MoHA">MoHA</option>
+                            <option value="GRA">GRA</option>
+                            <option value="GRO">GRO</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="citizenId" class="block font-medium mb-1">Citizen ID</label>
+                        <input id="citizenId" name="citizenId" type="text" required placeholder="e.g., 254536789" class="w-full border border-gray-200 rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400" />
+                    </div>
+                    <div>
+                        <label for="citizenName" class="block font-medium mb-1">Citizen Name</label>
+                        <input id="citizenName" name="citizenName" type="text" required placeholder="e.g., John Doe" class="w-full border border-gray-200 rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400" />
+                    </div>
+                    <div>
+                        <label for="document" class="block font-medium mb-1">Document to Verify</label>
+                        <input id="document" name="document" type="text" required placeholder="e.g., Passport Verification" class="w-full border border-gray-200 rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400" />
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded font-medium text-lg hover:bg-green-700 transition">Submit Request</button>
+                    </div>
+                </form>
+                <div id="success-message" class="hidden mt-6 text-green-700 font-semibold text-center"></div>
+            </div>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-gray-200 border-t border-gray-300 py-2 text-center text-sm text-blue-700">
+        <a href="#" class="underline">The Guyana Police Force</a>
+        <span class="mx-2 text-gray-400">*</span>
+        <a href="#" class="underline">Privacy & Terms</a>
+    </footer>
+    <script>
+        // Simulate police user data (replace with real data as needed)
+        const user = {
+            email: "policeuser@gpf.gov.gy"
+        };
+        document.getElementById('user-email').textContent = user.email;
+
+        // Form submission handler
+        document.getElementById('request-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Collect form data
+            const agency = document.getElementById('agency').value;
+            const citizenId = document.getElementById('citizenId').value.trim();
+            const citizenName = document.getElementById('citizenName').value.trim();
+            const documentToVerify = document.getElementById('document').value.trim();
+
+            // Simulate submission (replace with real API call)
+            document.getElementById('success-message').textContent =
+                `Request submitted for ${citizenName} (${citizenId}) to ${agency} for "${documentToVerify}".`;
+            document.getElementById('success-message').classList.remove('hidden');
+
+            // Optionally, reset the form
+            this.reset();
+        });
+    </script>

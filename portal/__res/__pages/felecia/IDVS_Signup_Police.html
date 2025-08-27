@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./output.css" rel="stylesheet">
+    <title>IDVS Sign In</title>
+</head>
+
+<body class="bg-white min-h-screen flex flex-col justify-between">
+    <div class="flex flex-col items-center mt-8">
+        <!-- Logo -->
+        <img src="gpf_logo.png" alt="Guyana Police Logo" class="w-32 h-32 mb-4" />
+        <!-- Card -->
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-md p-8">
+            <h2 class="text-center text-xl font-semibold mb-2">Inter-Agency Document Verification Service (IDVS)</h2>
+            <p class="text-center text-gray-500 mb-6">
+              Sign up as a Police User.
+                      </p>
+            <form id="registerForm" autocomplete="off">
+                <label class="block mb-2 text-sm font-medium text-gray-700" for="email">Email</label>
+                <div class="relative mb-4">
+                    <input id="email" type="email" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10" required />
+                    <span id="email-valid-icon" class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-400"></span>
+                </div>
+
+                <label class="block mb-2 text-sm font-medium text-gray-700" for="password">Password</label>
+                <div class="relative mb-2">
+                    <input id="password" type="password" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10" required />
+                    <button id="togglePassword" type="button" tabindex="-1" class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
+                        <!-- Eye Icon (Heroicons) -->
+                        <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                    </button>
+                </div>
+                <!-- Password Requirements -->
+                <ul class="mb-6 text-sm" id="password-criteria">
+                    <li id="length" class="flex items-center mb-1 text-gray-400">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path id="length-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg> At least 8 characters
+                    </li>
+                    <li id="uppercase" class="flex items-center mb-1 text-gray-400">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path id="uppercase-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg> One uppercase letter
+                    </li>
+                    <li id="lowercase" class="flex items-center mb-1 text-gray-400">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path id="lowercase-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg> One lowercase letter
+                    </li>
+                    <li id="number" class="flex items-center mb-1 text-gray-400">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path id="number-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg> One number
+                    </li>
+                    <li id="special" class="flex items-center text-gray-400">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path id="special-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg> One special character (<span class="font-mono">!@#$%^&amp;*()_+[]{}&lt;&gt;?</span>)
+                    </li>
+                </ul>
+               
+                <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition"> Create
+                    Account</button>
+            </form>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="text-center mt-8 mb-4 text-sm text-gray-500">
+        <a href="#" class="underline text-blue-600">Terms of Use</a>
+        <span class="mx-2">|</span>
+        <a href="#" class="underline text-blue-600">Privacy Policy</a>
+    </footer>
+    <script>
+        // Email validation
+        const emailInput = document.getElementById('email');
+        const emailIcon = document.getElementById('email-valid-icon');
+        emailInput.addEventListener('input', function() {
+            const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value);
+            emailIcon.innerHTML = valid ?
+                `<svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>` :
+                emailInput.value.length ?
+                `<svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>` :
+                '';
+        });
+
+        // Password validation
+        const passwordInput = document.getElementById('password');
+        const criteria = {
+            length: {
+                regex: /.{8,}/,
+                el: document.getElementById('length'),
+                icon: document.getElementById('length-icon')
+            },
+            uppercase: {
+                regex: /[A-Z]/,
+                el: document.getElementById('uppercase'),
+                icon: document.getElementById('uppercase-icon')
+            },
+            lowercase: {
+                regex: /[a-z]/,
+                el: document.getElementById('lowercase'),
+                icon: document.getElementById('lowercase-icon')
+            },
+            number: {
+                regex: /[0-9]/,
+                el: document.getElementById('number'),
+                icon: document.getElementById('number-icon')
+            },
+            special: {
+                regex: /[!@#$%^&*()_+\[\]{}<>?]/,
+                el: document.getElementById('special'),
+                icon: document.getElementById('special-icon')
+            }
+        };
+        passwordInput.addEventListener('input', function() {
+            const val = passwordInput.value;
+            for (const key in criteria) {
+                if (criteria[key].regex.test(val)) {
+                    criteria[key].el.classList.remove('text-gray-400');
+                    criteria[key].el.classList.add('text-green-600');
+                    criteria[key].icon.setAttribute('d', 'M5 13l4 4L19 7'); // check
+                } else {
+                    criteria[key].el.classList.add('text-gray-400');
+                    criteria[key].el.classList.remove('text-green-600');
+                    criteria[key].icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // x
+                }
+            }
+        });
+
+        // Password visibility toggle
+        const togglePassword = document.getElementById('togglePassword');
+        const eyeIcon = document.getElementById('eyeIcon');
+        let visible = false;
+        togglePassword.addEventListener('click', function() {
+            visible = !visible;
+            passwordInput.type = visible ? 'text' : 'password';
+            eyeIcon.innerHTML = visible
+                // Eye-off icon
+                ?
+                `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.956 9.956 0 012.293-3.95m1.414-1.414A9.956 9.956 0 0112 5c4.478 0 8.268 2.943 9.542 7a9.956 9.956 0 01-4.043 5.197M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18"/>`
+                // Eye icon
+                :
+                `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />`;
+        });
+
+        // Prevent form submission for demo
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Email validation
+            const emailVal = emailInput.value;
+            const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
+
+            // Password validation
+            const passwordVal = passwordInput.value;
+            const passwordValid =
+                criteria.length.regex.test(passwordVal) &&
+                criteria.uppercase.regex.test(passwordVal) &&
+                criteria.lowercase.regex.test(passwordVal) &&
+                criteria.number.regex.test(passwordVal) &&
+                criteria.special.regex.test(passwordVal);
+
+            if (emailValid && passwordValid) {
+                window.location.href = "Police_User_Dashboard.html";
+            }
+        });
+    </script>
+</body>
+
+</html>

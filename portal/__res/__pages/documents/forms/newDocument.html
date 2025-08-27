@@ -1,0 +1,107 @@
+{% extends 'base/app_base.html' %}
+
+    {% block page_title %} New Document {% endblock %}
+
+    {% block page_header %}
+        <span class ="">
+            Add Document
+        </span>
+    {% endblock %}
+
+
+    {% block page_content %}
+        <div class ="">
+            <form id="request-form" class="space-y-6" method ="post" enctype="application/x-www-form-urlencoded">
+                {% csrf_token %}
+                <div class ="">
+                    <label for="{{form.issuing_agency.id}}" class="block font-medium mb-1">
+                        {{form.issuing_agency.label_tag}}
+                    </label>
+
+                    <p class="block text-sm font-medium leading-6 text-red-500">
+                        required
+                    </p>
+
+                    {% comment %} Error Messages {% endcomment %}
+                    <div class="text-red-900">
+                        {% for error in form.issuing_agency.errors %}
+                            <div class="">
+                                {{error}}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class ="">
+                        <select id="issuing_agency" name="{{form.issuing_agency.name}}" class="w-full border border-gray-200 rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            {% for widget in form.issuing_agency.subwidgets %}
+                                <option value="{{widget.value}}" name ="{{widget.name}}" class ="">
+                                    {{widget}}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class ="">
+                    <label for="{{form.document_type.id}}" class="block font-medium mb-1">
+                        {{form.document_type.label_tag}}
+                    </label>
+
+                    <p class="block text-sm font-medium leading-6 text-red-500">
+                        required
+                    </p>
+
+                    {% comment %} Error Messages {% endcomment %}
+                    <div class="text-red-900">
+                        {% for error in form.document_type.errors %}
+                            <div class="">
+                                {{error}}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                     <div class ="">
+                        <select id="issuing_agency" name="{{form.document_type.name}}" class="w-full border border-gray-200 rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            {% for widget in form.document_type.subwidgets %}
+                                <option value="{{widget.value}}" name ="{{widget.name}}" class ="">
+                                    {{widget}}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+
+
+
+                <div class ="">
+                    <label for="{{form.document_id.id}}" class="block font-medium mb-1">
+                        {{form.document_id.label_tag}}
+                    </label>
+
+
+                     <p class="block text-sm font-medium leading-6 text-red-500">
+                        required
+                    </p>
+
+                    {% comment %} Error Messages {% endcomment %}
+                    <div class="text-red-900">
+                        {% for error in form.document_id.errors %}
+                            <div class="">
+                                {{error}}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <input id="{{form.document_id.id}}" name="{{form.document_id.name}}" type="{{form.document_id.type}}" placeholder="GUY-123545" class="w-full border border-gray-200 rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400" />
+                </div>
+
+
+
+                <div class="flex justify-end">
+                    <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded font-medium text-lg hover:bg-green-700 transition">Add Document</button>
+                </div>
+            </form>
+        </div>
+    {% endblock %}

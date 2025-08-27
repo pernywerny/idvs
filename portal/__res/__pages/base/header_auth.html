@@ -1,0 +1,18 @@
+<!-- Header Bar -->
+<header class="bg-gray-200 border-b border-gray-300">
+    <div class="flex items-center px-4 py-2">
+        {% load static %}
+            <img src="{% static 'imgs/gpf_logo.png' %}" alt="Guyana Police Force Logo" class="w-10 h-10 mr-2" />
+        <span class="text-lg font-semibold text-gray-800">Guyana Police Force</span>
+    </div>
+</header>
+<!-- Navigation Bar -->
+<nav class="bg-blue-900 text-white flex items-center justify-between px-4 py-2">
+    <div class="font-semibold text-base">IDVS Portal</div>
+    <div class="flex items-center space-x-6">
+        <span id="user-email" class="hidden sm:inline"></span>
+
+        {% load static %}
+            <img src="{% static 'imgs/gpf_logo.png' %}" alt="Guyana Police Force Logo" class="w-8 h-8 ml-2" />
+    </div>
+</nav>

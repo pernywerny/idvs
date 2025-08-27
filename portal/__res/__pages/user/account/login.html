@@ -1,0 +1,240 @@
+{% extends 'base/auth_base.html' %}
+
+    {% block page_title %} Login {% endblock %}
+
+    {% block page_header %}
+        <span class ="">
+            {{header}}
+        </span>
+    {% endblock %}
+
+    {% block page_content %}
+    
+    <div class="flex flex-col items-center mt-8">
+        <!-- Logo -->
+         {% load static %}
+            <img src="{% static 'imgs/gpf_logo.png' %}" alt="Guyana Police Logo" class="w-32 h-32 mb-4" />
+        <!-- Card -->
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-md p-8">
+            <h2 class="text-center text-xl font-semibold mb-2">Inter-Agency Document Verification Service (IDVS)</h2>
+           
+            
+            <form id="registerForm" autocomplete="off" method ="POST" enctype ="application/x-www-form-urlencoded">
+                {% csrf_token %}
+
+                {% if type == 'Police' %}
+                    <div class ="">
+                        <label class="block mb-2 text-sm font-medium text-gray-700" for="{{form.reg_num.id}}">
+                            {{form.reg_num.label_tag}}
+                        </label>
+
+                        <p class="block text-sm font-medium leading-6 text-red-500">
+                            required
+                        </p>
+
+                        {% comment %} Error Messages {% endcomment %}
+                        <div class="text-red-900">
+                            {% for error in form.reg_num.errors %}
+                                <div class="">
+                                    {{error}}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+
+                        <div class="relative mb-4">
+                            <input id="{{form.reg_num.id}}" type="{{form.reg_num.type}}" name ="{{form.reg_num.name}}" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10" />
+                            <span id="email-valid-icon" class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-400"></span>
+                        </div>
+                    </div>
+                {% endif %}
+
+
+
+
+                {% if type == 'Civilian' %}
+                    <div class ="">
+                        <label class="block mb-2 text-sm font-medium text-gray-700" for="{{form.email_addr.id}}">
+                            {{form.email_addr.label_tag}}
+                        </label>
+
+                        <p class="block text-sm font-medium leading-6 text-red-500">
+                            required
+                        </p>
+
+                        {% comment %} Error Messages {% endcomment %}
+                        <div class="text-red-900">
+                            {% for error in form.email_addr.errors %}
+                                <div class="">
+                                    {{error}}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+
+                        <div class="relative mb-4">
+                            <input id="{{form.email_addr.id}}" type="{{form.email_addr.type}}" name ="{{form.email_addr.name}}" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10" />
+                            <span id="email-valid-icon" class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-400"></span>
+                        </div>
+                    </div>
+                {% endif %}
+                
+                
+
+                <div class ="">
+                    <label class="block mb-2 text-sm font-medium text-gray-700" for="{{form.password.id}}">
+                        {{form.password.label_tag}}
+                    </label>
+
+
+                    <p class="block text-sm font-medium leading-6 text-red-500">
+                        required
+                    </p>
+
+
+                    {% comment %} Error Messages {% endcomment %}
+                    <div class="text-red-900">
+                        {% for error in form.password.errors %}
+                            <div class="">
+                                {{error}}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+
+                    <div class="relative mb-2">
+                        <input id="{{form.password.id}}" type="{{form.password.type}}" name ="{{form.password.name}}" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10" />
+                        <button id="togglePassword" type="button" tabindex="-1" class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
+                            <!-- Eye Icon (Heroicons) -->
+                            <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                
+               
+                <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition"> 
+                    Login
+                </button>
+            </form>
+
+            <div class ="">
+                {% if type == 'Civilian' %}
+                    <span class ="text-blue-700 font-medium hover:underline cursor-pointer">
+                        <p> Click <a href ="{% url 'user_man:auth_pol' %}"> Here </a> to go to the Police Portal</p>
+                    </span>
+                {% endif %}
+                
+                
+                {% if type == 'Police' %}
+                    <span class ="text-blue-700 font-medium hover:underline cursor-pointer">
+                        <p> Click <a class ="" href ="{% url 'user_man:auth_civ' %}"> Here </a> to go to the Public Portal</p>
+                    </span>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Email validation
+        const emailInput = document.getElementById('email');
+        const emailIcon = document.getElementById('email-valid-icon');
+        emailInput.addEventListener('input', function() {
+            const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value);
+            emailIcon.innerHTML = valid ?
+                `<svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>` :
+                emailInput.value.length ?
+                `<svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>` :
+                '';
+        });
+
+        // Password validation
+        const passwordInput = document.getElementById('password');
+        const criteria = {
+            length: {
+                regex: /.{8,}/,
+                el: document.getElementById('length'),
+                icon: document.getElementById('length-icon')
+            },
+            uppercase: {
+                regex: /[A-Z]/,
+                el: document.getElementById('uppercase'),
+                icon: document.getElementById('uppercase-icon')
+            },
+            lowercase: {
+                regex: /[a-z]/,
+                el: document.getElementById('lowercase'),
+                icon: document.getElementById('lowercase-icon')
+            },
+            number: {
+                regex: /[0-9]/,
+                el: document.getElementById('number'),
+                icon: document.getElementById('number-icon')
+            },
+            special: {
+                regex: /[!@#$%^&*()_+\[\]{}<>?]/,
+                el: document.getElementById('special'),
+                icon: document.getElementById('special-icon')
+            }
+        };
+        passwordInput.addEventListener('input', function() {
+            const val = passwordInput.value;
+            for (const key in criteria) {
+                if (criteria[key].regex.test(val)) {
+                    criteria[key].el.classList.remove('text-gray-400');
+                    criteria[key].el.classList.add('text-green-600');
+                    criteria[key].icon.setAttribute('d', 'M5 13l4 4L19 7'); // check
+                } else {
+                    criteria[key].el.classList.add('text-gray-400');
+                    criteria[key].el.classList.remove('text-green-600');
+                    criteria[key].icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // x
+                }
+            }
+        });
+
+        // Password visibility toggle
+        const togglePassword = document.getElementById('togglePassword');
+        const eyeIcon = document.getElementById('eyeIcon');
+        let visible = false;
+        togglePassword.addEventListener('click', function() {
+            visible = !visible;
+            passwordInput.type = visible ? 'text' : 'password';
+            eyeIcon.innerHTML = visible
+                // Eye-off icon
+                ?
+                `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.956 9.956 0 012.293-3.95m1.414-1.414A9.956 9.956 0 0112 5c4.478 0 8.268 2.943 9.542 7a9.956 9.956 0 01-4.043 5.197M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18"/>`
+                // Eye icon
+                :
+                `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />`;
+        });
+
+        // Prevent form submission for demo
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Email validation
+            const emailVal = emailInput.value;
+            const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
+
+            // Password validation
+            const passwordVal = passwordInput.value;
+            const passwordValid =
+                criteria.length.regex.test(passwordVal) &&
+                criteria.uppercase.regex.test(passwordVal) &&
+                criteria.lowercase.regex.test(passwordVal) &&
+                criteria.number.regex.test(passwordVal) &&
+                criteria.special.regex.test(passwordVal);
+
+            if (emailValid && passwordValid) {
+                window.location.href = "Police_User_Dashboard.html";
+            }
+        });
+    </script>
+
+    {% endblock %}

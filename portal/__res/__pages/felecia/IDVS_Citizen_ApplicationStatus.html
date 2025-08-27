@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./output.css" rel="stylesheet">
+    <title>IDVS Application Status</title>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <!-- Header Bar -->
+    <header class="bg-gray-200 border-b border-gray-300">
+        <div class="flex items-center px-4 py-2">
+            <img src="gpf_logo.png" alt="Guyana Police Force Logo" class="w-10 h-10 mr-2" />
+            <span class="text-lg font-semibold text-gray-800">Guyana Police Force</span>
+        </div>
+    </header>
+    <!-- Navigation Bar -->
+    <nav class="bg-blue-900 text-white flex items-center justify-between px-4 py-2">
+        <div class="font-semibold text-base">IDVS Citizen Dashboard</div>
+        <div class="flex items-center space-x-6">
+            <a href="IDVS_Service_Selection.html" class="hover:underline">Apply for Service</a>
+            <a href="IDVS_Citizen_ApplicationStatus.html" class="hover:underline">Application Status</a>
+            <span id="user-email" class="hidden sm:inline"></span>
+            <a href="IDVS_Login_Citizen.html" id="logoutBtn" class="bg-white text-blue-900 px-3 py-1 rounded font-semibold hover:bg-blue-100 transition">Logout</a>
+            <img src="gpf_logo.png" alt="Guyana Police Force Logo" class="w-8 h-8 ml-2" />
+        </div>
+    </nav>
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col items-center justify-start py-8">
+        <div class="w-full max-w-4xl">
+            <h2 class="text-2xl font-semibold text-center mb-8">My Application Status</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full border border-gray-400 bg-white rounded">
+                    <thead>
+                        <tr class="bg-gray-100 text-gray-700 text-sm">
+                            <th class="border border-gray-400 px-3 py-2">Application ID</th>
+                            <th class="border border-gray-400 px-3 py-2">Document ID</th>
+                            <th class="border border-gray-400 px-3 py-2">Citizen ID</th>
+                            <th class="border border-gray-400 px-3 py-2">Service Type</th>
+                            <th class="border border-gray-400 px-3 py-2">Status</th>
+                            <th class="border border-gray-400 px-3 py-2">Submission Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="application-table-body" class="text-center text-gray-800 text-sm">
+                        <!-- Dynamic rows here -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-8 text-center text-gray-700">
+                You will receive an email notification upon completion of each verified document.
+            </div>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-gray-200 border-t border-gray-300 py-2 text-center text-sm text-blue-700">
+        <a href="#" class="underline">The Guyana Police Force</a>
+        <span class="mx-2 text-gray-400">*</span>
+        <a href="#" class="underline">Privacy & Terms</a>
+    </footer>
+    <script>
+        // Simulate user data (replace with real data as needed)
+        const user = {
+            email: "TerryJ@gmail.com"
+        };
+        document.getElementById('user-email').textContent = user.email;
+
+        // Application data (could be fetched from an API)
+        const applications = [{
+            applicationId: "APP-56",
+            documentId: "DOC8954",
+            citizenId: "CIT-12300",
+            serviceType: "Passport Application",
+            status: "Pending",
+            submissionDate: "2025-07-30 10:00:00"
+        }, {
+            applicationId: "APP-56",
+            documentId: "DOC75625",
+            citizenId: "CIT-46500",
+            serviceType: "Driver's License Renewal",
+            status: "Verified",
+            submissionDate: "2025-07-30 10:05:30"
+        }, {
+            applicationId: "APP-56",
+            documentId: "DOC55774",
+            citizenId: "CIT-69800",
+            serviceType: "Police Clearance",
+            status: "Pending",
+            submissionDate: "2025-07-30 19:51:55"
+        }];
+
+        // Render table rows dynamically
+        const tbody = document.getElementById('application-table-body');
+        applications.forEach(app => {
+            const tr = document.createElement('tr');
+            tr.className = "hover:bg-blue-50";
+            tr.innerHTML = `
+                <td class="border border-gray-400 px-3 py-2">${app.applicationId}</td>
+                <td class="border border-gray-400 px-3 py-2">${app.documentId}</td>
+                <td class="border border-gray-400 px-3 py-2">${app.citizenId}</td>
+                <td class="border border-gray-400 px-3 py-2">${app.serviceType}</td>
+                <td class="border border-gray-400 px-3 py-2">
+                    <span class="${app.status === 'Verified' ? 'text-green-600 font-semibold' : 'text-yellow-600 font-semibold'}">
+                        ${app.status}
+                    </span>
+                </td>
+                <td class="border border-gray-400 px-3 py-2">${app.submissionDate}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+           
+       
+    </script>
+</body>
+
+</html>

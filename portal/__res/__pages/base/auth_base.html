@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> {% block page_title %} {% endblock %}</title>
+
+        <meta charset ="utf-8">
+        <meta name ="viewport" content ="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv ="x-ua-compatible" content ="ie=edge">
+
+        {% load static %}
+            <link rel ="stylesheet" href ="{% static 'css/output.css' %}">
+    </head>
+    
+    <body class ="bg-white min-h-screen flex flex-col justify-between">
+        <div class ="">
+
+            <!-- Navbar if any -->
+             <div class ="">
+
+             </div>
+
+            <!-- SIdenav if any -->
+            <div class ="">
+                {% include 'base/header_auth.html' %}
+            </div>
+
+            <div class ="">
+                <main class ="flex-1 flex flex-col items-center justify-start py-8">
+                    <div class ="w-full max-w-2xl">
+                        <div class="bg-white rounded-xl shadow p-8">
+                            <div class ="">
+                                <h1 class ="">
+                                    {% block page_header %} {% endblock %}
+                                </h1>
+                            </div>
+
+                            <!-- Flash Messages Section -->
+                            <div class ="">
+                                {% include 'base/alerts.html' %}
+                            </div>
+
+                            <div class ="">
+                                {% block page_content %} {% endblock %}
+                            </div>
+                        </div>
+                    </div>  
+                </main>
+            </div>
+        </div>
+    </body>
+</html>

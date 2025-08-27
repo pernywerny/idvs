@@ -1,0 +1,108 @@
+{% extends 'base/app_base.html' %}
+
+    {% block page_title %} Verify Document {% endblock %}
+
+    {% block page_header %}
+        <span class ="">
+            Verify Document
+        </span>
+    {% endblock %}
+
+
+    {% block page_content %}
+        <div class ="">
+            <form id="request-form" class="space-y-6" method ="post" enctype="application/x-www-form-urlencoded">
+                {% csrf_token %}
+                <div class ="">
+                    <label for="{{form.agency.id}}" class="block font-medium mb-1">
+                        {{form.agency.label_tag}}
+                    </label>
+
+                    <p class="block text-sm font-medium leading-6 text-red-500">
+                        required
+                    </p>
+
+                    {% comment %} Error Messages {% endcomment %}
+                    <div class="text-red-900">
+                        {% for error in form.agency.errors %}
+                            <div class="">
+                                {{error}}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class ="">
+                        <select id="agency" name="{{form.agency.name}}" class="w-full border border-gray-200 rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            {% for widget in form.agency.subwidgets %}
+                                <option value="{{widget.value}}" name ="{{widget.name}}" class ="">
+                                    {{widget}}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class ="">
+                    <label for="{{form.doc_type.id}}" class="block font-medium mb-1">
+                        {{form.doc_type.label_tag}}
+                    </label>
+
+                    <p class="block text-sm font-medium leading-6 text-red-500">
+                        required
+                    </p>
+
+                    {% comment %} Error Messages {% endcomment %}
+                    <div class="text-red-900">
+                        {% for error in form.doc_type.errors %}
+                            <div class="">
+                                {{error}}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                     <div class ="">
+                        <select id="agency" name="{{form.doc_type.name}}" class="w-full border border-gray-200 rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            {% for widget in form.doc_type.subwidgets %}
+                                <option value="{{widget.value}}" name ="{{widget.name}}" class ="">
+                                    {{widget}}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+
+
+
+                <div class ="">
+                    <label for="{{form.doc_id.id}}" class="block font-medium mb-1">
+                        {{form.doc_id.label_tag}}
+                    </label>
+
+
+                     <p class="block text-sm font-medium leading-6 text-red-500">
+                        required
+                    </p>
+
+                    {% comment %} Error Messages {% endcomment %}
+                    <div class="text-red-900">
+                        {% for error in form.doc_id.errors %}
+                            <div class="">
+                                {{error}}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <input id="{{form.doc_id.id}}" name="{{form.doc_id.name}}" type="{{form.doc_id.type}}" placeholder="GUY-123545" class="w-full border border-gray-200 rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400" />
+                </div>
+
+{{doc_id.errors}}
+
+
+                <div class="flex justify-end">
+                    <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded font-medium text-lg hover:bg-green-700 transition">Submit Request</button>
+                </div>
+            </form>
+        </div>
+    {% endblock %}

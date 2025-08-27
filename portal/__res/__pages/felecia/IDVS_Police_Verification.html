@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./output.css" rel="stylesheet">
+    <title>Request Details: REQ-004</title>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <!-- Header Bar -->
+    <header class="bg-gray-200 border-b border-gray-300">
+        <div class="flex items-center px-4 py-2">
+            <img src="gpf_logo.png" alt="Guyana Police Force Logo" class="w-10 h-10 mr-2" />
+            <span class="text-lg font-semibold text-gray-800">Guyana Police Force</span>
+        </div>
+    </header>
+    <!-- Navigation Bar -->
+    <nav class="bg-blue-900 text-white flex items-center justify-between px-4 py-2">
+        <div class="font-semibold text-base">IDVS Police Dashboard</div>
+        <div class="flex items-center space-x-6">
+            <span id="user-email" class="hidden sm:inline"></span>
+            <a href="IDVS_Login_Police.html" id="logoutBtn" class="bg-white text-blue-900 px-3 py-1 rounded font-semibold hover:bg-blue-100 transition">Logout</a>
+            <img src="gpf_logo.png" alt="Guyana Police Force Logo" class="w-8 h-8 ml-2" />
+        </div>
+    </nav>
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col items-center justify-start py-10">
+        <div class="w-full max-w-5xl bg-white rounded-xl shadow p-8">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-8">
+                <!-- Left: Document Details -->
+                <div class="flex-1">
+                    <h2 class="text-2xl font-semibold mb-6">Request Details: <span id="doc-id-title">REQ-004</span></h2>
+                    <h3 class="text-lg font-bold mb-4">DOCUMENT DETAILS</h3>
+                    <div class="space-y-2 text-gray-800">
+                        <div><span class="font-semibold">Document ID:</span> <span id="doc-id">REQ-004</span></div>
+                        <div><span class="font-semibold">Citizen ID:</span> <span id="citizen-id">29462321</span></div>
+                        <div><span class="font-semibold">Citizen Name:</span> <span id="citizen-name">Mark Oh</span></div>
+                        <div><span class="font-semibold">Service Type:</span> <span id="service-type">Passport verification</span></div>
+                        <div><span class="font-semibold">Submission Timestamp:</span> <span id="submission-timestamp">2025-08-25</span></div>
+                        <div>
+                            <span class="font-semibold">Current Status:</span>
+                            <span id="current-status" class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-semibold ml-2">Pending Agency Review</span>
+                        </div>
+                        <div><span class="font-semibold">Requesting Agency:</span> <span id="requesting-agency">MoHA</span></div>
+                    </div>
+                </div>
+                <!-- Right: Verification Actions -->
+                <div class="flex-1 flex flex-col items-start">
+                    <div class="flex justify-between w-full mb-2">
+                        <span class="text-lg font-bold">Verification Actions:</span>
+                        <button onclick="window.location.href='Police_User_Dashboard.html'" class="bg-gray-200 text-gray-800 px-5 py-2 rounded font-medium hover:bg-gray-300 transition ml-auto">Back to Dashboard</button>
+                    </div>
+                    <textarea id="verification-notes" rows="5" placeholder="Add verification notes..." class="w-full border border-gray-300 rounded px-4 py-3 mt-4 mb-6 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400 resize-none"></textarea>
+                    <div class="flex gap-6 w-full">
+                        <button id="mark-verified" class="flex-1 bg-green-600 text-white py-3 rounded font-semibold text-lg hover:bg-green-700 transition">Mark as Verified</button>
+                        <button id="mark-rejected" class="flex-1 bg-red-600 text-white py-3 rounded font-semibold text-lg hover:bg-red-700 transition">Mark as Rejected</button>
+                    </div>
+                    <div id="action-message" class="mt-6 text-center w-full font-semibold"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-gray-200 border-t border-gray-300 py-2 text-center text-sm text-blue-700">
+        <a href="#" class="underline">The Guyana Police Force</a>
+        <span class="mx-2 text-gray-400">*</span>
+        <a href="#" class="underline">Privacy & Terms</a>
+    </footer>
+    <script>
+        // Simulate police user data (replace with real data as needed)
+        const user = {
+            email: "policeuser@gpf.gov.gy"
+        };
+        document.getElementById('user-email').textContent = user.email;
+
+        // Simulated request data (replace with real data as needed)
+        const request = {
+            docId: "REQ-004",
+            citizenId: "29462321",
+            citizenName: "Mark Oh",
+            serviceType: "Passport verification",
+            submissionTimestamp: "2025-08-25",
+            currentStatus: "Pending Agency Review",
+            requestingAgency: "MoHA"
+        };
+
+        // Populate details dynamically
+        document.getElementById('doc-id-title').textContent = request.docId;
+        document.getElementById('doc-id').textContent = request.docId;
+        document.getElementById('citizen-id').textContent = request.citizenId;
+        document.getElementById('citizen-name').textContent = request.citizenName;
+        document.getElementById('service-type').textContent = request.serviceType;
+        document.getElementById('submission-timestamp').textContent = request.submissionTimestamp;
+        document.getElementById('current-status').textContent = request.currentStatus;
+        document.getElementById('requesting-agency').textContent = request.requestingAgency;
+
+        // Status badge color logic (optional for future status)
+        function setStatusBadge(status) {
+            const badge = document.getElementById('current-status');
+            badge.textContent = status;
+            badge.className = "px-3 py-1 rounded-full text-sm font-semibold ml-2 ";
+            if (status === "Pending Agency Review") {
+                badge.className += "bg-yellow-100 text-yellow-700";
+            } else if (status === "Verified") {
+                badge.className += "bg-green-100 text-green-700";
+            } else if (status === "Rejected") {
+                badge.className += "bg-red-100 text-red-700";
+            } else {
+                badge.className += "bg-gray-100 text-gray-700";
+            }
+        }
+
+        // Action buttons
+        document.getElementById('mark-verified').addEventListener('click', function() {
+            // Save status to localStorage
+            localStorage.setItem('REQ-004-status', 'Verified');
+            // Optionally, save notes
+            localStorage.setItem('REQ-004-notes', document.getElementById('verification-notes').value);
+            // Redirect to dashboard
+            window.location.href = "Police_User_Dashboard.html";
+        });
+        document.getElementById('mark-rejected').addEventListener('click', function() {
+            // Save status to localStorage
+            localStorage.setItem('REQ-004-status', 'Rejected');
+            // Optionally, save notes
+            localStorage.setItem('REQ-004-notes', document.getElementById('verification-notes').value);
+            // Redirect to dashboard
+            window.location.href = "Police_User_Dashboard.html";
+        });
+    </script>
+</body>
+
+</html>
+
