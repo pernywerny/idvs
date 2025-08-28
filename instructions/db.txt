@@ -1,0 +1,9 @@
+The db files are sql files so installing them is straightforward
+api.sql is the api database
+portal.sql is the portal database 
+db.sql is both databases exported as a single file
+
+
+
+
+Conversely, the databases can be created using the migrate feature in django
